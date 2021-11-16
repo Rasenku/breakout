@@ -1,62 +1,3 @@
-// JavaScript code goes here
-  
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
-
-const ballRadius = 10;
-const paddleHeight = 10;
-const paddleWidth = 75;
-const brickRowCount = 5;
-const brickColumnCount = 3;
-const brickWidth = 75;
-const brickHeight = 20;
-const brickPadding = 10;
-const brickOffsetTop = 30;
-const brickOffsetLeft = 30;
-let paddleXStart = (canvas.width - paddleWidth) / 2;
-const PI2 = Math.PI * 2;
-const objcolor = '#0095DD';
-
-
-class Sprite {
-  constructor(x = 0, y = 0, width = 100, height = 100, color = "red"){
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.color = color;
-  }
-  render(ctx){
-    ctx.beginPath()
-    ctx.rect(this.x, this.y, this.width, this.height)
-    ctx.fillStyle = this.color
-    ctx.fill()
-    ctx.closePath()
-  }
-}
-class Ball extends Sprite {
-  constructor(x = 0, y = 0, dx = 2, dy = -1, radius = 10) {
-    super(x, y, radius*2, radius*2, "#0095DD")
-    this.dx = dx;
-    this.dy = -dy;
-    this.radius = radius;
-  }
-  render(ctx){
-    ctx.beginPath()
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2)
-    ctx.fillStyle = this.color
-    ctx.fill()
-    ctx.closePath()
-  }
-}
-
-class Brick extends Sprite{
-  constructor(x,y, width = 75, height = 20, color = "#0095DD"){
-    super(x, y, width, height, color)
-    this.status = status;
-  }
-}
-
 //variables
 let ball = new Ball();
 
@@ -74,7 +15,6 @@ let leftPressed = false;
 const bricks = [];
 
 initializeBricks();
-
 
 //functions
 
@@ -100,8 +40,8 @@ function collisionDetection() {
           brick.status = 0;
           score += 1;
           if (score === brickRowCount * brickColumnCount) {
-            alert('YOU WIN, CONGRATS!');
-            document.location.reload();
+            //alert('YOU WIN, CONGRATS!');
+            // document.location.reload();
           }
         }
       }
@@ -128,10 +68,6 @@ function drawBricks() {
   for(let c=0; c<brickColumnCount; c++) {
     for(let r=0; r<brickRowCount; r++) {
       if(bricks[c][r].status == 1) {
-        let brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
-        let brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
-        bricks[c][r].x = brickX;
-        bricks[c][r].y = brickY;
         bricks[c][r].render(ctx);
       }
     }
@@ -169,8 +105,8 @@ function collisionsWithCanvasAndPaddle() {
     } else {
       lives -= 1;
       if (!lives) {
-        alert('GAME OVER');
-        document.location.reload();
+        // alert('GAME OVER');
+        // document.location.reload();
       } else {
       resetBallandPaddle();
       }
